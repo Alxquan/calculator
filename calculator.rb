@@ -1,4 +1,6 @@
 
+
+
 def operator(num_1, num_2)
 	case @modifier
 	when "+"
@@ -7,10 +9,15 @@ def operator(num_1, num_2)
 		num_1 - num_2
 		#subtraction operation
 	when "/"
-		num_1 / num_2
+    if num_2 == 0
+      puts "can't divide by 0"
+    else 
+      num_1 / num_2
+    end
 		#division operation
 	when "*"
 		num_1 * num_2
+
 		#multiplication operation
 	when "clear"
 		puts "Clearing numbers from memory"
@@ -20,7 +27,7 @@ def operator(num_1, num_2)
 end
 
 solution = nil
-while true
+while true # possible solution? #&& gets.chomp != "quit"
   if solution
     # tell the user that they have a result
     # ask the user what they want to do: use result, clear, quit
@@ -28,20 +35,19 @@ while true
     # if clear, nil out solution variable and ask for the first number again
     # if use result continue
     num_1 = solution
-  else 
-    puts "Please input first number or type quit"
-    num_1 = gets.chomp.downcase
-      if num_1 == "quit"
-        exit 0 
-      else
-        num_1 = num_1.to_f
-      end
+  else
+    puts "Please input first number"
+    num_1 = gets.to_f
   end
     puts "Please enter an operation (+ - / *)"
     @modifier = gets.chomp
-    puts "Please input second number"
-    num_2 = gets.to_f
-
+    puts "Please input second number or type quit"
+    num_2 = gets.chomp.downcase
+      if num_2 == "quit"
+        exit 0 
+      else
+        num_2 = num_2.to_f
+      end  
   puts "#{num_1} #{@modifier} #{num_2} is equal to #{operator(num_1, num_2)}"
 
   solution = operator(num_1, num_2) 
@@ -53,3 +59,8 @@ end
 #operator method on new num1 and new gets num2
 #loops until clear input
 
+if gets.chomp == "clear"
+  solution = nil
+else
+arithmetic
+end
